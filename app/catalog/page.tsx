@@ -1,5 +1,8 @@
+import { Filters } from "@/components/Filters/Filters";
+
 const Catalog = async () => {
-    return <p>Catalog</p>;
+
+    return <Filters />;
 }
 
 export default Catalog;

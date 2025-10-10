@@ -1,0 +1,24 @@
+.filtersWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}   
+
+.filtersTitle {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    position: relative;
+    padding-bottom: 24px;
+}
+
+.filtersTitle::after{
+    content: "";
+    display: block;
+    width: 360px;
+    height: 1px;
+    background: #DADDE1;
+    position: absolute;
+    top: 48px;
+    left: 0;
+}
