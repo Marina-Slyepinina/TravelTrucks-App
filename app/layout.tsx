@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/Header/Header";
 import "./globals.css";
+import { Container } from "@/components/Container/Container";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -44,8 +45,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>
-          <Header />
-          <main>{children}</main>
+          <Container>
+            <Header />
+            <main>{children}</main>
+          </Container>
       </body>
     </html>
   );
