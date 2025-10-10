@@ -1,0 +1,28 @@
+.nav {
+    display: flex;
+    gap: 450px;
+    padding-left: 46px;
+}
+
+.navLogo {
+    align-self: center;
+}
+
+.navList {
+    display: flex;
+    gap: 32px;
+
+}
+
+.navItem {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+.navItem:hover {
+    color: var(--button-hover);
+}
