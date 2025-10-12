@@ -1,0 +1,128 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 360px;
+}
+
+.locationWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.locationTitle {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--gray);
+}
+
+.locationInput {
+    border-radius: 12px;
+    padding: 16px 200px 16px 46px;
+    width: 360px;
+    background-color: var(--inputs);
+    outline: none;
+    border: none;
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--gray);
+}
+
+.allFiltersGroupWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.mainAllFiltersTitle {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+.filterGroupWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.filterGroupTitle {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    position: relative;
+    padding-bottom: 24px;
+}
+
+.filtersWrap {
+    width: 360px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    background: transparent;
+}
+
+.filterItem {
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    width: 112px;
+    height: 96px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.selected {
+    border-color: var(--button);
+}
+
+.filterIcon {
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 0;
+}
+
+.filterLabel {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+}
+
+.filterGroupTitle::after {
+    content: "";
+    display: block;
+    width: 360px;
+    height: 1px;
+    background: #DADDE1;
+    position: absolute;
+    top: 48px;
+    left: 0;
+}
+
+.button {
+    border-radius: 200px;
+    border: none;
+    padding: 16px 60px;
+    width: 166px;
+    background-color: var(--button);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 15px;
+}
+
+.button:hover {
+    background-color: var(--button-hover);
+}

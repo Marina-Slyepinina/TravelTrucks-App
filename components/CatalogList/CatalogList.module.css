@@ -1,0 +1,13 @@
+.catalogWrap {
+    width: 888px;
+}
+
+.catalogList {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.textNotFound {
+    margin: auto;
+}
