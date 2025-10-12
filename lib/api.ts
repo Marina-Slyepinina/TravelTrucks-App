@@ -60,3 +60,8 @@ export const fetchCampersData = async (page:number, filters?: CamperFilters): Pr
     throw error;
   }
 }
+
+export const fetchCamperById = async (id: string) => {
+  const response = await axios.get<Camper>(`/campers/${id}`);
+  return response.data;
+}

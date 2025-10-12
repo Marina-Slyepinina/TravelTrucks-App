@@ -1,9 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useCamperStore } from '@/lib/store';
 import { Camper } from '@/types/camper';
-import css from "./CamperCard.module.css";
 import { FilterDataItem, OtherFilters, VehicleTypeFilters } from '@/utils/filterData';
 import clsx from 'clsx';
+import css from "./CamperCard.module.css";
+
 
 
 interface CamperCardProps {
@@ -83,7 +85,7 @@ export const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
         ))}
       </ul>
 
-      <button className={css.showMoreButton}>Show more</button>
+      <Link href={`/catalog/${camper.id}`} className={css.showMoreButton}>Show more</Link>
    </div>
   </li>
  );
