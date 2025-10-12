@@ -12,8 +12,6 @@ interface FeatureItem {
 }
 
 export const CamperDetails = ({ data }: { data: Camper }) => {
-
-    // console.log("CAMPER ", data);
     
     const [activeTab, setActiveTab] = useState('Features');
 
@@ -82,7 +80,6 @@ export const CamperDetails = ({ data }: { data: Camper }) => {
 
         </div>
 
-{/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */}
         
         <div className={css.camperFeaturesReviewsOrderFormWrap}>
 
@@ -90,8 +87,6 @@ export const CamperDetails = ({ data }: { data: Camper }) => {
                 <h3 className={`${css.toggleButton} ${activeTab === 'Features' ? css.active : ''}`} onClick={() => handleTabClick('Features')}>Features</h3>
                 <h3 className={`${css.toggleButton} ${activeTab === 'Reviews' ? css.active : ''}`} onClick={() => handleTabClick('Reviews')}>Reviews</h3>
             </div>
-
-{/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */}
 
             {activeTab === 'Features' && (
                 <section className={css.camperFeatures}>
@@ -144,10 +139,49 @@ export const CamperDetails = ({ data }: { data: Camper }) => {
                     </div>
                 </section>
             )}
+
+{/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */}
             
             {activeTab === 'Reviews' && (
                 <section className={css.camperReviews}>
-                    <p>Reviews</p>
+
+                    <ul className={css.reviewsList}>
+                        {data.reviews.map((item, index) => {
+
+                            const renderRatingStars = (rating: number) => {
+                                const stars = [];
+ 
+                                for (let i = 1; i <= 5; i++) {
+                                    stars.push(
+                                        <svg key={i} className={`${i <= rating ? css.starFull : css.starEmpty}`} width={16} height={16}>
+                                            <use href="/sprite.svg#icon-star"></use>
+                                        </svg>
+                                    );
+                                }
+                                return stars;
+                            };
+
+                            return <li key={index} className={css.reviewsItem}>
+
+                                <div className={css.reviewsHeader}>
+                                    <div className={css.reviewsAvatar}>
+                                        {item.reviewer_name[0]}
+                                    </div>
+
+                                    <div>
+                                        <p className={css.reviewsName}>{item.reviewer_name}</p>
+                                        <div className={css.reviewsRating}>
+                                            {renderRatingStars(item.reviewer_rating)}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p className={css.reviewsComment}>{item.comment}</p>
+                            </li>
+                        })}
+                        
+                    </ul>
+
                 </section>
             )}
             
