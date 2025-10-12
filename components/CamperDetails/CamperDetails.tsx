@@ -4,14 +4,48 @@ import Image from 'next/image';
 import { Camper } from "@/types/camper";
 import css from "./CamperDetails.module.css";
 import { useState } from 'react';
+import { OtherFilters, VehicleTypeFilters } from '@/utils/filterData';
+
+interface FeatureItem {
+    label: string;
+    icon: string;
+}
 
 export const CamperDetails = ({ data }: { data: Camper }) => {
+
+    // console.log("CAMPER ", data);
     
     const [activeTab, setActiveTab] = useState('Features');
 
     const handleTabClick = (tabName: string) => {
         setActiveTab(tabName);
     }
+
+    const filtersData = [...OtherFilters.data];
+
+    const getAvailableFeatures = (camperData: Camper) => {
+        const features: FeatureItem[] = [];
+        
+        filtersData.forEach(filter => {
+            const { name, label, icon, filterKey } = filter;
+            
+            if (filterKey === 'transmission' || filterKey === 'engine') {
+                if (camperData[filterKey as keyof Camper] === name) {
+                    features.push({ label, icon });
+                }
+            } 
+
+            else if (filterKey === 'equipment') {
+                if (camperData[name as keyof Camper] === true) {
+                    features.push({ label, icon });
+                }
+            }
+        });
+
+        return features;
+    };
+
+    const availableFeatures = getAvailableFeatures(data);
 
     return <section className={css.camperDetails}>
         <div className={css.camperDescr}>
@@ -48,6 +82,8 @@ export const CamperDetails = ({ data }: { data: Camper }) => {
 
         </div>
 
+{/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+        
         <div className={css.camperFeaturesReviewsOrderFormWrap}>
 
             <div className={css.toggleButtonsWrap}>
@@ -55,16 +91,64 @@ export const CamperDetails = ({ data }: { data: Camper }) => {
                 <h3 className={`${css.toggleButton} ${activeTab === 'Reviews' ? css.active : ''}`} onClick={() => handleTabClick('Reviews')}>Reviews</h3>
             </div>
 
+{/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+
             {activeTab === 'Features' && (
-                <div className={css.camperFeatures}>
-                    <p>Features</p> 
-                </div>
+                <section className={css.camperFeatures}>
+                    <ul className={css.camperFeaturesFilters}>
+                        {availableFeatures.map((feature, index) => (
+                            <li key={index} className={css.featureItem}>
+                                <svg className={css.featureIcon} width={20} height={20}>
+                                    <use href={feature.icon}></use> 
+                                </svg>
+                                <span className={css.featureText}>{feature.label}</span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div className={css.camperFeaturesDetails}>
+                        <h2 className={css.detailsHeader}>Vehicle details</h2>
+                        <div className={css.detailsDivider}></div>
+
+                        <ul className={css.detailsList}> 
+
+                            <div className={css.detailsRow}>
+                                <span className={css.detailsTerm}>Form</span> 
+                                <span className={css.detailsValue}>
+                                {VehicleTypeFilters.data.find(f => f.name === data.form)?.label || data.form}
+                                </span> 
+                            </div>
+                            
+                            <div className={css.detailsRow}>
+                                <span className={css.detailsTerm}>Length</span>
+                                <span className={css.detailsValue}>{data.length}</span>
+                            </div>
+                            <div className={css.detailsRow}>
+                                <span className={css.detailsTerm}>Width</span>
+                                <span className={css.detailsValue}>{data.width}</span>
+                            </div>
+                            <div className={css.detailsRow}>
+                                <span className={css.detailsTerm}>Height</span>
+                                <span className={css.detailsValue}>{data.height}</span>
+                            </div>
+                            <div className={css.detailsRow}>
+                                <span className={css.detailsTerm}>Tank</span>
+                                <span className={css.detailsValue}>{data.tank}</span>
+                            </div>
+                            <div className={css.detailsRow}>
+                                <span className={css.detailsTerm}>Consumption</span>
+                                <span className={css.detailsValue}>{data.consumption}</span>
+                            </div>
+                        </ul>
+
+                    </div>
+                </section>
             )}
             
             {activeTab === 'Reviews' && (
-                <div className={css.camperReviews}>
+                <section className={css.camperReviews}>
                     <p>Reviews</p>
-                </div>
+                </section>
             )}
             
             <div className={css.orderForm}></div>

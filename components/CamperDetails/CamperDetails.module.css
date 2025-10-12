@@ -89,3 +89,70 @@
     height: 5px;
     background-color: var(--button);
 }
+
+.camperFeatures {
+    padding: 44px 80px;
+    width: 631px;
+    min-height: 588px;
+    border-radius: 10px;
+    background: var(--inputs);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.camperFeaturesFilters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.featureItem {
+    border-radius: 100px;
+    padding: 12px 18px;
+    background: var(--badges);
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+
+    display: flex;
+    gap: 8px;
+    mix-blend-mode: multiply;
+}
+
+.featureIcon {
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 0;
+}
+
+.detailsHeader {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+.detailsDivider {
+    height: 1.5px;
+    width: 100%;
+    background-color: var(--gray-light);
+    margin: 24px 0;
+}
+
+.detailsList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detailsRow {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+}
