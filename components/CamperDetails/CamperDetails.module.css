@@ -64,6 +64,11 @@
     color: var(--text);
 }
 
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .toggleButtonsWrap {
     display: flex;
     gap: 40px;
@@ -156,8 +161,6 @@
     line-height: 1.5;
     text-align: center;
 }
-
-/* -------------------------------------------------------- */
 
 .camperReviews {
     width: 631px;
