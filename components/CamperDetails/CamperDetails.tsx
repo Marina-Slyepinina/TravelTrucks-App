@@ -1,8 +1,17 @@
+"use client"
+
 import Image from 'next/image';
 import { Camper } from "@/types/camper";
 import css from "./CamperDetails.module.css";
+import { useState } from 'react';
 
-export const CamperDetails = ({data}: {data: Camper}) => {
+export const CamperDetails = ({ data }: { data: Camper }) => {
+    
+    const [activeTab, setActiveTab] = useState('Features');
+
+    const handleTabClick = (tabName: string) => {
+        setActiveTab(tabName);
+    }
 
     return <section className={css.camperDetails}>
         <div className={css.camperDescr}>
@@ -38,10 +47,26 @@ export const CamperDetails = ({data}: {data: Camper}) => {
             <div className={css.text}>{data.description}</div>
 
         </div>
-        {/* Features and Reviews Components*/}
+
         <div className={css.camperFeaturesReviewsOrderFormWrap}>
-            <div className={css.camperFeatures}></div>
-            <div className={css.camperReviews}></div>
+
+            <div className={css.toggleButtonsWrap}>
+                <h3 className={`${css.toggleButton} ${activeTab === 'Features' ? css.active : ''}`} onClick={() => handleTabClick('Features')}>Features</h3>
+                <h3 className={`${css.toggleButton} ${activeTab === 'Reviews' ? css.active : ''}`} onClick={() => handleTabClick('Reviews')}>Reviews</h3>
+            </div>
+
+            {activeTab === 'Features' && (
+                <div className={css.camperFeatures}>
+                    <p>Features</p> 
+                </div>
+            )}
+            
+            {activeTab === 'Reviews' && (
+                <div className={css.camperReviews}>
+                    <p>Reviews</p>
+                </div>
+            )}
+            
             <div className={css.orderForm}></div>
         </div>
         
