@@ -30,6 +30,10 @@
     padding-bottom: 24px;
 }
 
+.active {
+    color: var(--button-hover);
+}
+
 .navItem:hover {
     color: var(--button-hover);
 }
