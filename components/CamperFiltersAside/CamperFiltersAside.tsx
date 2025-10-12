@@ -91,6 +91,9 @@ export const CamperFiltersAside = () => {
                     placeholder="City"
                     className={css.locationInput}
                 />
+                <svg width={20} height={20} className={css.locationIcon}>
+                    <use href="sprite.svg#icon-map"></use>
+                </svg>
             </div>
 
             <div className={css.allFiltersGroupWrap}>
