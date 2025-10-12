@@ -6,9 +6,7 @@ export const Hero = () => {
         <section className={css.heroWrap}>
             <h1 className={css.title}>Campers of your dreams</h1>
             <p className={css.text}>You can find everything you want in our catalog</p>
-            <button type="button" className={css.button}>
-                <Link href="/catalog">View Now</Link>
-            </button>
+            <Link href="/catalog" className={css.button}>View Now</Link>
         </section>
     )
 }
