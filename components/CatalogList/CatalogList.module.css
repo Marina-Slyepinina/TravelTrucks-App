@@ -1,5 +1,7 @@
 .catalogWrap {
     width: 888px;
+    display: flex;
+    flex-direction: column;
 }
 
 .catalogList {
@@ -8,6 +10,6 @@
     gap: 32px;
 }
 
-.textNotFound {
+.center {
     margin: auto;
 }

@@ -7,14 +7,13 @@ import { FilterDataItem, FilterGroup, OtherFilters, VehicleTypeFilters } from '@
 import clsx from 'clsx';
 import css from "./CamperFiltersAside.module.css";
 
-
 export const CamperFiltersAside = () => {
-    const setFilters = useCamperStore(state => state.setFilters);
-    const fetchCamper = useCamperStore(state => state.fetchCamper);
     const currentFilters = useCamperStore(state => state.filters);
+    const setFilters = useCamperStore(state => state.setFilters);
+    const fetchCampers = useCamperStore(state => state.fetchCampers)
 
     const [localFilters, setLocalFilters] = useState<CamperFilters>(currentFilters);
-    
+
     const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLocalFilters({ ...localFilters, location: e.target.value });
     };
@@ -42,8 +41,7 @@ export const CamperFiltersAside = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setFilters(localFilters);
-        console.log("localFilters ", localFilters);
-        fetchCamper();
+        fetchCampers();
     };
     
     const isSelected = (item: FilterDataItem): boolean => {
@@ -76,7 +74,6 @@ export const CamperFiltersAside = () => {
         </div>
       </div>
     );
-
 
     return (
         <form onSubmit={handleSubmit} className={css.form}>

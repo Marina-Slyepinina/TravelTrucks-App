@@ -12,7 +12,7 @@ interface CamperCardProps {
  camper: Camper;
 }
 
-export const CamperCard: React.FC<CamperCardProps> = ({ camper }) => {
+export const CamperCard = ({ camper }: CamperCardProps) => {
  const toggleFavorite = useCamperStore(state => state.toggleFavorite);
  const isFavorite = useCamperStore(state => state.favorites.includes(camper.id));
 

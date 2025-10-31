@@ -1,6 +1,15 @@
 export type CamperVehicleType = "panelTruck" | "alcove" | "fullyIntegrated";
 export type CamperTransmission = "automatic" | "manual";
 export type CamperEngine = "petrol" | "diesel"| "hybrid";
+export type CamperEquipment = 'AC' | 'bathroom' | 'kitchen' | 'TV' | 'radio' | 'refrigerator' | 'microwave' | 'gas' | 'water';
+
+export interface CamperFilters {
+    location: string; 
+    form: CamperVehicleType | string; 
+    transmission: CamperTransmission | string; 
+    engine: CamperEngine | string; 
+    equipment: CamperEquipment[]; 
+}
 
 interface CamperImg {
     thumb: string,
@@ -12,8 +21,6 @@ interface CamperReview {
     reviewer_rating: number,
     comment: string,
 }
-
-export type CamperEquipment = 'AC' | 'bathroom' | 'kitchen' | 'TV' | 'radio' | 'refrigerator' | 'microwave' | 'gas' | 'water';
 
 export interface Camper {
     id: string,
@@ -46,12 +53,4 @@ export interface Camper {
 export interface Campers {
     total: number,
     items: Camper[]
-}
-
-export interface CamperFilters {
-    location: string; 
-    form: CamperVehicleType | string; 
-    transmission: CamperTransmission | string; 
-    engine: CamperEngine | string; 
-    equipment: CamperEquipment[]; 
 }

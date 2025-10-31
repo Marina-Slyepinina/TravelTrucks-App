@@ -1,8 +1,7 @@
-
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 import { fetchCampersData } from './api';
 import { Camper, CamperFilters } from '@/types/camper';
-import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface CamperStoreState {
     campers: Camper[];
@@ -15,79 +14,65 @@ interface CamperStoreState {
 
 interface CamperStoreActions {
     setFilters: (newFilters: CamperFilters) => void;
-    fetchCamper: (isLoadMore?: boolean) => Promise<void>; 
-    loadMore: () => void;
-    getHasMore: () => boolean;
+    fetchCampers: () => void;
+    hasNextPage: () => boolean;
     toggleFavorite: (camperId: string) => void;
 }
 
 type CamperStore = CamperStoreState & CamperStoreActions;
 
-
 export const useCamperStore = create<CamperStore>()(persist((set, get) => ({
-
     campers: [],
     currentPage: 1,
     totalFiltered: 0,
-    isLoading: false,
-    filters: { 
-        location: '', 
-        form: '', 
-        transmission: '', 
-        engine: '', 
-        equipment: [] 
+    isLoading: true,
+    filters: {
+        location: '',
+        form: '',
+        transmission: '',
+        engine: '',
+        equipment: []
     },
     favorites: [],
 
     setFilters: (newFilters) => {
-        set({ 
+        set({
             filters: newFilters,
             currentPage: 1,
             campers: [],
             totalFiltered: 0,
         });
     },
-
-    fetchCamper: async (isLoadMore = false) => {
+    
+    fetchCampers: async () => {
 
         set({ isLoading: true });
+
         const state = get();
 
-        const pageToFetch = isLoadMore ? state.currentPage + 1 : state.currentPage;
+        const shouldLoadNextPage = state.hasNextPage();
+
+        const pageToFetch = shouldLoadNextPage ? state.currentPage + 1 : state.currentPage;
 
         try {
-
             const { items: newItems, totalCount } = await fetchCampersData(pageToFetch, state.filters);
-
-            set(state => ({
-                campers: isLoadMore ? [...state.campers, ...newItems] : newItems,
-                currentPage: pageToFetch,
+            set({
+                campers: shouldLoadNextPage ? [...state.campers, ...newItems] : newItems,
                 totalFiltered: totalCount,
-            }));
-            
-            set({ isLoading: false });
-
+                currentPage: pageToFetch,
+            });
         } catch (error) {
-
-            if (!isLoadMore) {
-                set({ campers: [], totalFiltered: 0 });
-            }
-            set({ isLoading: false });
-            console.error("Помилка завантаження даних:", error);
-
+            console.error("Помилка завантаження кемперів:", error);
         } finally {
             set({ isLoading: false });
         }
     },
 
-    loadMore: () => {
-        if (get().getHasMore()) {
-            get().fetchCamper(true);
-        }
-    },
-
-    getHasMore: () => {
+    hasNextPage: () => {
         const state = get();
+
+        console.log("state.campers.length ", state.campers.length);
+        console.log("state.totalFiltered ", state.totalFiltered);
         return state.campers.length < state.totalFiltered;
     },
   

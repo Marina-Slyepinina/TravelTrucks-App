@@ -2,14 +2,14 @@ import React from 'react';
 import { useCamperStore } from '@/lib/store';
 import css from "./LoadMoreButton.module.css";
 
-export const LoadMoreButton: React.FC = () => {
-  const loadMore = useCamperStore(state => state.loadMore);
-  const isLoading = useCamperStore(state => state.isLoading);
-  const hasMore = useCamperStore(state => state.getHasMore());
-  const totalLoaded = useCamperStore(state => state.campers.length);
+export const LoadMoreButton = () => {
 
-  if (!hasMore || totalLoaded === 0) {
-    return null;
+  const hasNextPage = useCamperStore((state) => state.hasNextPage()); 
+  const loadMore = useCamperStore((state) => state.fetchCampers);
+  const isLoading = useCamperStore((state) => state.isLoading);
+
+  if (!hasNextPage) {
+      return null;
   }
 
   return (

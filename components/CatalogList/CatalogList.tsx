@@ -6,32 +6,35 @@ import { CamperCard } from '../CamperCard/CamperCard';
 import { LoadMoreButton } from '../LoadMoreButton/LoadMoreButton';
 import css from "./CatalogList.module.css";
 
-
-export const CatalogList: React.FC = () => {
+export const CatalogList = () => {
   const campers = useCamperStore(state => state.campers);
-  const fetchCamper = useCamperStore(state => state.fetchCamper);
-  const totalFiltered = useCamperStore(state => state.totalFiltered);
-
+  const fetchCampers = useCamperStore(state => state.fetchCampers);
+  const isLoading = useCamperStore(state => state.isLoading);
+    
   useEffect(() => {
-    fetchCamper(false); 
-  }, [fetchCamper]); 
+    fetchCampers(); 
+  }, [fetchCampers]); 
+  
 
-  if (totalFiltered === 0) {
-    return <p className={css.textNotFound}>No campers found for the selected criteria</p>;
+  if (!isLoading && campers.length === 0) {
+    return <p className={css.center}>No campers found for the selected criteria</p>;
   }
 
   return (
     <div className={css.catalogWrap}>
-
-      <ul className={css.catalogList}>
-        {campers.map(camper => (
-          <CamperCard key={camper.id} camper={camper} />
-        ))}
-      </ul>
-
-      <LoadMoreButton />
-      
+      {campers.length === 0 && isLoading ? (
+        <p className={css.center}>Loading...</p>
+      ) : (
+        campers.length > 0 && (
+        <>
+          <ul className={css.catalogList}>
+            {campers.map(camper => (
+              <CamperCard key={camper.id} camper={camper} />
+            ))}
+          </ul>
+          <LoadMoreButton />
+        </> )
+      )}
     </div>
   );
 };
-
